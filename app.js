@@ -1,10 +1,12 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const passport = require('passport')
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 
 const connectDB = require('./config/db');
@@ -35,6 +37,7 @@ app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
     // cookie: { secure: true }
 }))
 

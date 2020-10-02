@@ -13,7 +13,10 @@ router.get('/', ensureGuest, (req, res) => {
 // @desc Dashboard
 // @route GET/
 router.get('/dashboard', ensureAuth, (req, res) => {
-    res.render('dashboard')
+    console.log(req.user);
+    res.render('dashboard', {
+        firstName: req.user.firstName
+    })
 })
 
 module.exports = router;
