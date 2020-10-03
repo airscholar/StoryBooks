@@ -17,6 +17,10 @@ dotenv.config({ path: './config/config.env' });
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+//body parser
+app.use(express.urlencoded({ extended: false}));
+app.use(express.json());
+
 //connect db
 connectDB();
 
@@ -49,5 +53,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', require('./routes/index'));
 app.use('/auth/', require('./routes/auth'));
+app.use('/stories/', require('./routes/stories'));
 
 app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode and port ${PORT}`));

@@ -1,3 +1,30 @@
 <h6>Dashboard</h6>
 <h1>Welcome, {{ firstName }}</h1>
-<p class="lead">Here are your stories...</p>
+<p class="lead">Here are your stories</p>
+
+{{#if stories}}
+<table>
+    <thead>
+        <tr>
+            {{!-- <td>Id</td> --}}
+            <td>Title</td>
+            <td>CreatedAt</td>
+            <td>Status</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each stories}}
+        <tr>
+            {{!-- <td>{{_id}}</td> --}}
+            <td><a href="/stories/{{_id}}">{{title}}</a> </td>
+            <td>{{createdAt}}</td>
+            <td class="dash-status">{{status}}</td>
+            <td></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{else}}
+<p>You have not created any stories</p>
+{{/if}}
