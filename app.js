@@ -8,7 +8,7 @@ const passport = require('passport')
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 // const moment = require('moment');
-const { formatDate, stripTags, truncate, editIcon } = require('./helpers/hbs');
+const { formatDate, stripTags, truncate, editIcon, select } = require('./helpers/hbs');
 
 const connectDB = require('./config/db');
 
@@ -43,7 +43,8 @@ app.engine('.hbs', exphbs({
         formatDate,
         stripTags,
         truncate,
-        editIcon
+        editIcon, 
+        select
     },
     defaultLayout: 'main', extname: '.hbs'
 }));

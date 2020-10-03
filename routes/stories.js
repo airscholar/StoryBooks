@@ -30,7 +30,7 @@ router.get('/', ensureAuth, async (req, res) => {
         const stories = await Story.find({ status: 'public' })
             .populate('user')
             .sort({ createdAt: 'desc' }).lean();
-            
+
         res.render('stories/index', {
             stories
         });
@@ -40,6 +40,26 @@ router.get('/', ensureAuth, async (req, res) => {
         res.render('error/500');
     }
 });
+
+// @desc Edit stories
+// @route GET stories/edit/:id
+router.get('/edit/:id', ensureAuth, async (req, res) => {
+    const story = await Story.findOne({ _id: req.params.id }).lean();
+    if (!story) {
+        res.render('errors/404');
+        return;
+    }
+
+    // if(story.user !== req.user._id){
+    //     res.render('stories')
+    // } else {
+    res.render('stories/edit', {
+        story
+    })
+    // }
+
+});
+
 
 module.exports = router;
 
