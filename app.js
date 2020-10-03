@@ -8,7 +8,7 @@ const passport = require('passport')
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 // const moment = require('moment');
-const { formatDate, stripTags, truncate } = require('./helpers/hbs');
+const { formatDate, stripTags, truncate, editIcon } = require('./helpers/hbs');
 
 const connectDB = require('./config/db');
 
@@ -42,7 +42,8 @@ app.engine('.hbs', exphbs({
     {
         formatDate,
         stripTags,
-        truncate
+        truncate,
+        editIcon
     },
     defaultLayout: 'main', extname: '.hbs'
 }));
@@ -60,6 +61,12 @@ app.use(session({
 //passport middleware
 app.use(passport.initialize())
 app.use(passport.session())
+
+//global var
+app.use(function(req, res, next) {
+    res.locals.user = req.user || null
+    next()
+})
 
 app.use(express.static(path.join(__dirname, 'public')))
 
